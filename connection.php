@@ -16,7 +16,7 @@ $dbname="online_quiz";*/
     die('Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error());
   }
 
-  echo 'DataBase Connected successfully.';
+  //echo 'DataBase Connected successfully.';
 
  // $mysqli->close();
 ?>

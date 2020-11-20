@@ -35,7 +35,7 @@
                                             
                                             <div class="card-header"><strong>Add New Question with text</strong></div>
                                             <div class="card-body card-block">
-                                            <div class="form-group"><label for="company" class=" form-control-label">Add Question</label><input type="text"  name="question" placeholder="Question" class="form-control"></div>
+                                            <div class="form-group"><label for="company" class=" form-control-label">Add Question</label><input type="text"  name="question" placeholder="Question" class="form-control" required></div>
                                             <div class="form-group"><label for="company" class=" form-control-label">Add Option 1</label><input type="text"  name="opt1" placeholder="Option 1" class="form-control"></div>
                                             <div class="form-group"><label for="company" class=" form-control-label">Add Option 2</label><input type="text"  name="opt2" placeholder="Option 2" class="form-control"></div>
                                             <div class="form-group"><label for="company" class=" form-control-label">Add Option 3</label><input type="text"  name="opt3" placeholder="Option 3" class="form-control"></div>
@@ -83,6 +83,8 @@
                                     <td>Option 3</td>
                                     <td>Option 4</td>
                                     <td>Correct Answer</td>
+                                    <td>Edit</td>
+                                    <td>Delete</td>
                                 </tr>
                               </thead>
                               <tbody>
@@ -92,19 +94,93 @@
                              $result=$mysqli->query($sql);
                              while($row=mysqli_fetch_array($result, MYSQLI_NUM)){
 
-                                ?>
-                                <tr>
-                                      <td><?php echo $row[1]?></td>
-                                      <td><?php echo $row[2]?></td>
-                                      <td><?php echo $row[3]?></td>
-                                      <td><?php echo $row[4]?></td>
-                                      <td><?php echo $row[5]?></td>
-                                      <td><?php echo $row[6]?></td>
-                                      <td><?php echo $row[7]?></td>
-                                      
-                                </tr>
+                                echo "<tr>";
+                                echo "<td>"; echo $row[1]; echo "</td>";
+                                echo "<td>"; echo $row[2]; echo "</td>";
+                                echo "<td>";
+                                if(strpos($row[3],'opt_images/')!==FALSE){
+                                    ?>
+                                      <img src="<?php echo $row[3]; ?>" height="50" width="50">
+                                    <?php
+                                }
+                                else{
+    
+                                    echo $row[3];
+                                }
+                                echo "</td>";
 
+                                //option 2
+                                echo "<td>";
+                                if(strpos($row[4],'opt_images/')!==FALSE){
+                                    ?>
+                                      <img src="<?php echo $row[4]; ?>" height="50" width="50">
+                                    <?php
+                                }
+                                else{
+    
+                                    echo $row[4];
+                                }
+                                echo "</td>";
+
+                                //option 3
+                                echo "<td>";
+                                if(strpos($row[5],'opt_images/')!==FALSE){
+                                    ?>
+                                      <img src="<?php echo $row[5]; ?>" height="50" width="50">
+                                    <?php
+                                }
+                                else{
+    
+                                    echo $row[5];
+                                }
+                                echo "</td>";
+
+                                // option 4
+                                echo "<td>";
+                                if(strpos($row[6],'opt_images/')!==FALSE){
+                                    ?>
+                                      <img src="<?php echo $row[6]; ?>" height="50" width="50">
+                                    <?php
+                                }
+                                else{
+    
+                                    echo $row[6];
+                                }
+                                echo "</td>";
+
+                                //correct answer
+                                echo "<td>";
+                                if(strpos($row[7],'opt_images/')!==FALSE){
+                                    ?>
+                                      <img src="<?php echo $row[7]; ?>" height="50" width="50">
+                                    <?php
+                                }
+                                else{
+    
+                                    echo $row[7];
+                                }
+                                echo "</td>";
+                                echo "<td>";
+                                if(strpos($row[7],'opt_images/')!==FALSE){
+                                    ?>
+                                      <a href="edit_option_images.php?id=<?php echo $row[0];?>&id1=<?php echo $id;?>">Edit</a>
+                                    <?php
+                                }
+                                else{
+
+                                    ?>
+                                      <a href="edit_option.php?id=<?php echo $row[0];?>&id1=<?php echo $id;?>">Edit</a>
+                                    <?php
+    
+                                    
+                                }
+                                echo "</td>";
+                                echo "<td>";
+                                ?>
+                                <a href="delete_option.php?id=<?php echo $row[0];?>&id1=<?php echo $id;?>">Delete</a>
                                 <?php
+                                echo "</td>";
+                                echo "</tr>";
 
                              }
 
@@ -174,7 +250,7 @@
 
         // option 1
         $fnm1=$_FILES["fopt1"]["name"];
-        echo $fnm1;
+        //echo $fnm1;
         $dst1="opt_images/".$tm.$fnm1;
         $dst_db1="opt_images/".$tm.$fnm1;
         move_uploaded_file($_FILES["fopt1"]["tmp_name"],$dst1);

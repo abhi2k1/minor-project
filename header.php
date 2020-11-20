@@ -1,5 +1,7 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
+
 
 <head>
     <meta charset="utf-8">
@@ -39,7 +41,7 @@
                                             <ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item"><a href="#" class="nav-link">Select Exam</a>
                                                 </li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Last Result</a>
+                                                <li class="nav-item"><a href="old_exam_results.php" class="nav-link">Last Result</a>
                                                 </li>
                                                 <li class="nav-item"><a href="#" class="nav-link">Logout</a>
                                                 </li>
@@ -65,7 +67,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
 															<img src="img/avatar-mini2.jpg" alt="" />
-															<span class="admin-name">User</span>
+															<span class="admin-name"><?php echo $_SESSION["userName"];?></span>
 															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
 														</a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
@@ -77,11 +79,11 @@
                                                         </li>
                                                         <li><a href="#"><span class="edu-icon edu-settings author-log-ic"></span>Settings</a>
                                                         </li>-->
-                                                        <li><a href="#"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                                                        <li><a href="logout.php"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
+                                                <!--<li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
 
                                                     <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
                                                         <ul class="nav nav-tabs custon-set-tab">
@@ -95,7 +97,7 @@
 
 
                                                     </div>
-                                                </li>
+                                                </li>-->
                                             </ul>
                                         </div>
                                     </div>
@@ -117,7 +119,7 @@
 
                                     <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 text-right">
                                         <ul class="breadcome-menu">
-                                            <li>Count Down timer
+                                            <li><div id="countdowntimer" style="display:block;"></div>
                                             </li>
 
                                         </ul>
@@ -129,3 +131,22 @@
                 </div>
             </div>
         </div>
+
+<script type="text/javascript">
+setInterval(() => {
+    timer();
+},1000);
+   function timer(){
+        var xmlhttp=new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                if(xmlhttp.responseText=="00:00:01"){
+                    window.location="result.php";
+                }
+                document.getElementById("countdowntimer").innerHTML=xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","foarajax/load_timer.php",true);
+        xmlhttp.send(null);
+    }
+</script>
